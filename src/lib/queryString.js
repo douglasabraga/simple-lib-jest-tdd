@@ -1,24 +1,24 @@
 const keyValueToString = ([key, value]) => {
-    if(typeof value === 'object' && !Array.isArray(value)) {
-        throw new Error('Invalid type object')
-    }
-    return `${key}=${value}`
+	if (typeof value === "object" && !Array.isArray(value)) {
+		throw new Error("Invalid type object");
+	}
+	return `${key}=${value}`;
+};
+
+export function queryString(obj) {
+	return Object.entries(obj).map(keyValueToString).join("&");
 }
 
-export function queryString(obj) 
-    {     return Object.entries(obj)
-    .map(keyValueToString)
-    .join('&');     }
+export function parse(string) {
+	return Object.fromEntries(
+		string.split("&").map((item) => {
+			let [key, value] = item.split("=");
 
-export function parse(string)
-    {     return Object.fromEntries(
-        string.split('&').map(item => {
-            let [key, value] = item.split('=');
+			if (value.indexOf(",") > -1) {
+				value = value.split(",");
+			}
 
-            if(value.indexOf(',') > -1) {
-                value = value.split(',');
-            }
-
-            return [key, value]
-        })
-    ); }
+			return [key, value];
+		})
+	);
+}
