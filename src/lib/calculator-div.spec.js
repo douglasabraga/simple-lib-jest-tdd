@@ -1,4 +1,4 @@
-const div = require('./calculator-div')
+import {div} from './calculator-div';
 
 it('should div 10 and 1 and the result must be 10', () => {
     expect(div(10,1)).toBe(10);
